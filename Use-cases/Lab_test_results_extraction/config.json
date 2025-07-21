@@ -1,0 +1,43 @@
+{
+  "extraction_config": {
+    "use_case": "Lab test results extraction",
+    "description": "Extracting results from laboratory test results (medical lab tests)",
+    "main_model_name": "LabtestresultsextractionInfo",
+    "purpose_of_extraction": "to extract information from medical laboratory test results",
+    "document_type": "medical lab test reports",
+    "additional_instructions": "For multiple tests, if the conclusion is 'ABNORMAL', or 'BORDERLINE', indicate in bracket which test result is abnormal, e.g., ABNORMAL (HbA1C)",
+    "created_at": "2025-07-21T17:38:07.199523",
+    "fields": [
+      {
+        "field_name": "test(s)",
+        "field_type": "str",
+        "description": "name(s) of the lab test(s). Separate by semi colon if there are multiple tests.",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "Result(s)",
+        "field_type": "str",
+        "description": "The figures or remarks against the result(s). Separate by semi colon if there are multiple tests.",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "normal range",
+        "field_type": "str",
+        "description": "normal or reference range against test(s). For each test, enclose its range(s) in square bracket. The brackets will be separated by comma. ",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "Conclusion",
+        "field_type": "str",
+        "description": "The final conclusion against the test results and normal/refernece ranges.",
+        "required": true,
+        "enum_values": [
+          "Normal, Borderline, Abnormal"
+        ]
+      }
+    ]
+  }
+}

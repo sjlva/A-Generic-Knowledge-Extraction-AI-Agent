@@ -1,0 +1,54 @@
+{
+  "extraction_config": {
+    "use_case": "Resume extraction",
+    "description": "Pydantic models for extracting structured information from resume. ",
+    "main_model_name": "ResumeextractionInfo",
+    "purpose_of_extraction": "to extract information from resumes",
+    "document_type": "resumes, CVs",
+    "additional_instructions": "- Extract only top-3, high-level skills,\n- Output the name of degree/education in full form",
+    "created_at": "2025-07-21T04:38:08.604393",
+    "fields": [
+      {
+        "field_name": "name",
+        "field_type": "str",
+        "description": "name of the person in resume",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "skills",
+        "field_type": "str",
+        "description": "person's skillset",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "Industry",
+        "field_type": "str",
+        "description": "industry or domain the person belongs to. Choose ONE from:\n        - Healthcare & wellbeing: Medical, healthcare, wellness, fitness, health services, diagnostics, devices, mental health\n        - Automotive: Car manufacturers, parts suppliers, automotive software, autonomous vehicles\n        - Construction: Building construction, architecture, civil engineering, construction materials, planning\n        - Manufacturing: Physical goods production, industrial production, factories, automation\n        - Cultural & creative industries: Design, publishing, media production, art, cultural heritage, creative content\n        - Defense: Military, defense technologies, security forces, governmental defense\n        - Education & training: Educational services, training, e-learning platforms, educational content, academic tools\n        - Environment & sustainability: Environmental protection, sustainability, renewable energy, conservation, climate monitoring\n        - Finance: Banking, insurance, fintech, investment, accounting, financial services\n        - Legal: Legal services, legal tech, compliance tools, regulatory assistance\n        - Security: Cybersecurity, physical security, surveillance, identity verification, threat detection\n        - Smart cities: Urban infrastructure technologies, city planning, urban monitoring, smart city initiatives\n        - Transport, mobility, logistics: Transportation services, logistics, supply chain, shipping, freight, mobility\n        - Travel & tourism: Travel industry, tourism, hospitality, booking services, travel planning\n        - Business development/business services: B2B services, consulting, business optimization, productivity tools\n        - Real estate & property: Property management, real estate services, property development, facility management\n        - Arts & entertainment: Entertainment, media, gaming, arts, leisure sectors\nComputer science: information technology, computer systems engineering, artificial intelligence, data science, any other field related to computer science.\n        - Other: Companies that don't clearly fit into any of the above categories\n-",
+        "required": true,
+        "enum_values": [
+          "Healthcare & wellbeing, Automotive, Construction, Manufacturing, Cultural & creative industries, Defense, Education & training, Environment & sustainability, Finance, Legal, Security, Smart cities, Transport, mobility, logistics, Travel & tourism, Business development/business services, Real estate & property, Arts & entertainment, Computer science, Other"
+        ]
+      },
+      {
+        "field_name": "Education",
+        "field_type": "str",
+        "description": "person's highest education. ",
+        "required": true,
+        "enum_values": [
+          "Bachelors, Masters, PhD, Associate, Diploma, Certification, Other"
+        ]
+      },
+      {
+        "field_name": "Age",
+        "field_type": "str",
+        "description": "age of the person. If not specifically written, calculate from the date of birth (if available). Choose one from:\n",
+        "required": true,
+        "enum_values": [
+          "above 20, above 30, above 40, above 50"
+        ]
+      }
+    ]
+  }
+}

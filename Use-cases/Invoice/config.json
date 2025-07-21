@@ -1,0 +1,57 @@
+{
+  "extraction_config": {
+    "use_case": "Invoice",
+    "description": "Extracting information from invoices",
+    "main_model_name": "InvoiceInfo",
+    "purpose_of_extraction": "to extract tax payment information from invoices sent by traffic department",
+    "document_type": "tax payment invoices",
+    "additional_instructions": "the amount will be in euro currency format. Extract it in the same format.",
+    "created_at": "2025-07-21T17:12:23.612419",
+    "fields": [
+      {
+        "field_name": "name",
+        "field_type": "str",
+        "description": "name of the recepient",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "address",
+        "field_type": "str",
+        "description": "recepient's address",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "amount",
+        "field_type": "str",
+        "description": "invoice amount",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "Due date",
+        "field_type": "str",
+        "description": "the date on which the invoice is due.",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "bank name",
+        "field_type": "str",
+        "description": "Name of the bank",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "car type",
+        "field_type": "str",
+        "description": "type of the car",
+        "required": true,
+        "enum_values": [
+          "sedan, hatchback, Coupe, Convertible (Cabriolet), SUV (Sport Utility Vehicle), Crossover (CUV), Station Wagon (Estate), Pickup Truck"
+        ]
+      }
+    ]
+  }
+}

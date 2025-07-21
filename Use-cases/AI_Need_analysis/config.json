@@ -1,0 +1,59 @@
+{
+  "extraction_config": {
+    "use_case": "test",
+    "description": "Extracting structured information from unstructured AI consultancy documents",
+    "main_model_name": "testInfo",
+    "purpose_of_extraction": "extract information from AI consultancy documents",
+    "document_type": "AI consultancy documents",
+    "additional_instructions": "be concise",
+    "created_at": "2025-07-21T04:28:35.001596",
+    "fields": [
+      {
+        "field_name": "company",
+        "field_type": "str",
+        "description": "name of the company",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "experts",
+        "field_type": "str",
+        "description": "name of the experts",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "AI field",
+        "field_type": "str",
+        "description": "he primary AI field the company is using or planning to use. Choose ONE from:\n        - Generative AI: Content generation (text, images, audio, code), large language models, retrieval augment generation, chatbots, text-to-speech, speech-to-text, model context protocol, AI agents\n        - Machine learning: Traditional ML algorithms, neural networks, deep learning, clustering, classification, pattern recognition\n        - Predictive analytics: Statistical algorithms for forecasting, trend analysis, predictive modeling based on historical data\n        - Computer vision & image processing: Image processing, image recognition, object detection, obejct tracking, facial recognition, image segmentation, image description or labeling, video analysis, eye-tracking\n        - Rule-based systems: Predefined rules, logic, knowledge bases, expert systems, decision trees, rule-based reasoning\n        - Other: AI field that doesn't clearly fit into any of the above categories",
+        "required": true,
+        "enum_values": [
+          "Generative AI, Machine learning, Predictive analytics, Computer vision & image processing, Rule‑based systems, Other"
+        ]
+      },
+      {
+        "field_name": "domain",
+        "field_type": "str",
+        "description": "The primary industry domain the company belongs to. Choose ONE from:\n        - Healthcare & wellbeing: Medical, healthcare, wellness, fitness, health services, diagnostics, devices, mental health\n        - Automotive: Car manufacturers, parts suppliers, automotive software, autonomous vehicles\n        - Construction: Building construction, architecture, civil engineering, construction materials, planning\n        - Manufacturing: Physical goods production, industrial production, factories, automation\n        - Cultural & creative industries: Design, publishing, media production, art, cultural heritage, creative content\n        - Defense: Military, defense technologies, security forces, governmental defense\n        - Education & training: Educational services, training, e-learning platforms, educational content, academic tools\n        - Environment & sustainability: Environmental protection, sustainability, renewable energy, conservation, climate monitoring\n        - Finance: Banking, insurance, fintech, investment, accounting, financial services\n        - Legal: Legal services, legal tech, compliance tools, regulatory assistance\n        - Security: Cybersecurity, physical security, surveillance, identity verification, threat detection\n        - Smart cities: Urban infrastructure technologies, city planning, urban monitoring, smart city initiatives\n        - Transport, mobility, logistics: Transportation services, logistics, supply chain, shipping, freight, mobility\n        - Travel & tourism: Travel industry, tourism, hospitality, booking services, travel planning\n        - Business development/business services: B2B services, consulting, business optimization, productivity tools\n        - Real estate & property: Property management, real estate services, property development, facility management\n        - Arts & entertainment: Entertainment, media, gaming, arts, leisure sectors\n        - Other: Companies that don't clearly fit into any of the above categories",
+        "required": true,
+        "enum_values": [
+          "Healthcare & wellbeing, Automotive, Construction, Manufacturing, Cultural & creative industries, Defense, Education & training, Environment & sustainability, Finance, Legal, Security, Smart cities, Transport, mobility, logistics, Travel & tourism, Business development/business services, Real estate & property, Arts & entertainment, Other"
+        ]
+      },
+      {
+        "field_name": "Intended AI idea",
+        "field_type": "str",
+        "description": "Brief description (one phrase not exceeding a few words) of the company's proposed or intended AI solution. Examples: 'AI-based healthcare app for lifestyle recommendations', 'AI-based language learning platform', 'Computer vision system for quality control', etc.",
+        "required": true,
+        "enum_values": null
+      },
+      {
+        "field_name": "Recommendations",
+        "field_type": "str",
+        "description": "A very brief summary of the recommendations, not exceeding a few phrases. ",
+        "required": true,
+        "enum_values": null
+      }
+    ]
+  }
+}
