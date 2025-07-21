@@ -203,7 +203,6 @@ For organizations requiring secure document processing:
 ```
 knowledge-extraction-agent/
 ├── README.md                 # Comprehensive project documentation
-├── LICENSE                   # MIT license file
 ├── .env.example             # Environment variables template
 ├── setup.sh                 # Linux/Mac setup script
 ├── setup.bat                # Windows setup script
@@ -319,9 +318,6 @@ We welcome contributions to improve the Knowledge Extraction AI Agent! Please se
 4. **Push to Branch**: `git push origin feature/your-feature-name`
 5. **Submit Pull Request**
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
