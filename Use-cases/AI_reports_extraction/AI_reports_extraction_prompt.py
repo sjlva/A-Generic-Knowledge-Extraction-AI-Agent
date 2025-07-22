@@ -5,9 +5,9 @@ This file contains a complete, self-contained extraction prompt system.
 """
 
 EXTRACTION_PROMPT = """
-TASK: test
+TASK: AI reports extraction
 
-CONTEXT:
+EXTRACTION TASK:
 Extracting structured information from unstructured AI consultancy documents
 
 EMBEDDED PYDANTIC MODELS:
@@ -61,15 +61,14 @@ CRITICAL EXTRACTION RULES:
    - Maintain exact values, dates, and numerical figures as written
 
 2. DATA HANDLING:
-   - For dates: Use ISO format (YYYY-MM-DD) when possible
+   - For dates: Use DD-MM-YYYY format when possible
    - For numbers: Preserve original precision and units
    - For text: Maintain original spelling and capitalization
    - For lists: Extract all relevant items, remove duplicates
    - For enums: Choose ONLY from the specified options
+   - For the extracted fields whose length exceeds 30 words, summarize their text into less than 30 words comprising very brief key phrases separated by semi-colon.
 
 3. FIELD VALIDATION:
-   - Required fields must be populated or marked as 'n/a'
-   - Optional fields can be null/empty if not found
    - Enum fields must match one of the specified values exactly
    - List fields should contain valid, non-empty items
    - Numerical fields should be valid numbers in correct format
@@ -84,6 +83,9 @@ CRITICAL EXTRACTION RULES:
 
 OUTPUT FORMAT:
 Return the extracted information as a JSON object that exactly matches the testInfo structure shown above.
+
+CRITICAL: All JSON field names MUST be in snake_case format (lowercase with underscores) to match the model exactly.
+For example: "due_date", "bank_name", "car_type" - NOT "Due date", "bank name", "car type"
 
 Example output structure:
 ```json

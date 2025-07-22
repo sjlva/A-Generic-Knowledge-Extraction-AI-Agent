@@ -5,7 +5,7 @@ This file contains a complete, self-contained extraction prompt system.
 """
 
 EXTRACTION_PROMPT = """
-TASK: Research Document Analysis
+TASK: Research paper data extraction
 
 EXTRACTION TASK:
 Knowledge extraction from research papers
@@ -15,7 +15,7 @@ EMBEDDED PYDANTIC MODELS:
 ```python
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 class Classification(str, Enum):
     NATURAL_SCIENCES = "Natural Sciences"

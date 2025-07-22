@@ -4,7 +4,7 @@
 ```python
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 class Classification(str, Enum):
     NATURAL_SCIENCES = "Natural Sciences"

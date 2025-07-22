@@ -1,6 +1,6 @@
 {
   "extraction_config": {
-    "use_case": "Invoice",
+    "use_case": "Invoice data extraction",
     "description": "Extracting information from invoices",
     "main_model_name": "InvoiceInfo",
     "purpose_of_extraction": "to extract tax payment information from invoices sent by traffic department",

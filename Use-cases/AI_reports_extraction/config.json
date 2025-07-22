@@ -1,12 +1,12 @@
 {
   "extraction_config": {
-    "use_case": "test",
+    "use_case": "AI reports extraction",
     "description": "Extracting structured information from unstructured AI consultancy documents",
-    "main_model_name": "testInfo",
+    "main_model_name": "AIReportsExtraction",
     "purpose_of_extraction": "extract information from AI consultancy documents",
     "document_type": "AI consultancy documents",
     "additional_instructions": "be concise",
-    "created_at": "2025-07-21T04:28:35.001596",
+    "created_at": "2025-07-22T21:56:20.744432",
     "fields": [
       {
         "field_name": "company",
