@@ -218,7 +218,7 @@ def initialize_session_state():
     if 'rebuild_models' not in st.session_state:
         st.session_state.rebuild_models = False
     if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-3-5-sonnet-20241022'
+        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
     if 'extraction_model' not in st.session_state:
         st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
     if 'use_azure' not in st.session_state:
@@ -226,13 +226,13 @@ def initialize_session_state():
     if 'use_azure' not in st.session_state:
         st.session_state.use_azure = False
     if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-3-5-sonnet-20241022'
+        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
     if 'extraction_model' not in st.session_state:
         st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
     if 'use_azure' not in st.session_state:
         st.session_state.use_azure = False
     if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-3-5-sonnet-20241022'
+        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
     if 'extraction_model' not in st.session_state:
         st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
     if 'use_azure' not in st.session_state:
@@ -355,7 +355,7 @@ def build_additional_instructions() -> str:
 def validate_azure_configuration() -> tuple[bool, str, str]:
     """Validate Azure configuration and return status, message, and CSS class"""
     use_azure = st.session_state.get('use_azure', False)
-    generation_model = st.session_state.get('model_generation_model', 'claude-3-5-sonnet-20241022')
+    generation_model = st.session_state.get('model_generation_model', 'claude-sonnet-4-20250514')
     extraction_model = st.session_state.get('extraction_model', 'gpt-4.1-2025-04-14')
     
     if not use_azure:
@@ -736,7 +736,7 @@ def configuration_section():
     with col1:
         # Initialize session state for model settings if not exists
         if 'model_generation_model' not in st.session_state:
-            st.session_state.model_generation_model = 'claude-3-5-sonnet-20241022'
+            st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
         if 'extraction_model' not in st.session_state:
             st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
         if 'use_azure' not in st.session_state:
@@ -744,8 +744,8 @@ def configuration_section():
         
         st.session_state.model_generation_model = st.selectbox(
             "Model for Data Model Generation",
-            options=['claude-3-5-sonnet-20241022', 'gpt-4.1-2025-04-14'],
-            index=0 if st.session_state.model_generation_model == 'claude-3-5-sonnet-20241022' else 1,
+            options=['claude-sonnet-4-20250514', 'gpt-4.1-2025-04-14'],
+            index=0 if st.session_state.model_generation_model == 'claude-sonnet-4-20250514' else 1,
             help="Choose the AI model to generate Pydantic data models from your field configurations"
         )
     
@@ -756,7 +756,7 @@ def configuration_section():
             extraction_options = ['gpt-4.1-2025-04-14']
             default_extraction = 'gpt-4.1-2025-04-14'
         else:
-            extraction_options = ['gpt-4.1-2025-04-14', 'claude-3-5-sonnet-20241022']
+            extraction_options = ['gpt-4.1-2025-04-14', 'claude-sonnet-4-20250514']
             default_extraction = st.session_state.extraction_model
             
         if default_extraction not in extraction_options:
@@ -1067,12 +1067,12 @@ def run_extraction():
     try:
         # Get API configuration and model selections
         api_config = get_api_config()
-        model_generation_model = st.session_state.get('model_generation_model', 'claude-3-5-sonnet-20241022')
+        model_generation_model = st.session_state.get('model_generation_model', 'claude-sonnet-4-20250514')
         extraction_model = st.session_state.get('extraction_model', 'gpt-4.1-2025-04-14')
         
         # Ensure models are strings and not None
         if not model_generation_model:
-            model_generation_model = 'claude-3-5-sonnet-20241022'
+            model_generation_model = 'claude-sonnet-4-20250514'
         if not extraction_model:
             extraction_model = 'gpt-4.1-2025-04-14'
         
