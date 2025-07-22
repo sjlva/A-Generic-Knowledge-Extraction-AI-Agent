@@ -4,6 +4,8 @@
 
 The **Knowledge Extraction AI Agent** is a powerful, generic AI-powered application that allows organizations to create their own knowledge extraction use cases without requiring any coding expertise. This intelligent system automatically generates sophisticated Pydantic data models based on plain language descriptions of extraction requirements, making structured data extraction accessible to non-technical users.
 
+![Application Overview](images/image2.png)
+
 ### Key Features
 
 🤖 **No-Code Model Generation**: Describe your extraction needs in plain language, and the AI automatically creates optimized Pydantic models  
