@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class OpenAIExtractor:
-    """OpenAI GPT-4 powered data extraction"""
+    """OpenAI GPT-4.1 powered data extraction"""
     
     def __init__(self, api_config=None):
         # Use centralized OpenAI client
@@ -27,7 +27,7 @@ class OpenAIExtractor:
     def extract_data(self, document_content: str, extraction_prompt: str, 
                     model_class: Type, document_metadata: Dict[str, Any], 
                     additional_instructions: str = "") -> Dict[str, Any]:
-        """Extract structured data from document using OpenAI GPT-4"""
+        """Extract structured data from document using OpenAI GPT-4.1"""
         
         # Parse additional instructions to extract context components
         extraction_purpose, document_type, custom_instructions = self._parse_additional_instructions(additional_instructions)

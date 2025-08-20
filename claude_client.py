@@ -4,7 +4,7 @@ from typing import Dict, Any, List
 import anthropic
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('./.env')
 
 class ClaudeClient:
     def __init__(self):

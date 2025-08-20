@@ -37,19 +37,162 @@ class Domain(str, Enum):
     LEGAL = "Legal"
     SECURITY = "Security"
     SMART_CITIES = "Smart cities"
-    TRANSPORT = "Transport, mobility, logistics"
+    PROPERTY_REAL_ESTATE_SECTOR = "Property and real estate sector"
+    TRANSPORT_LOGISTICS = "Transport & logistics"
     TRAVEL = "Travel & tourism"
-    BUSINESS_DEVELOPMENT_BUSINESS_SERVICES_REAL_ESTATE_PROPERTY = "Business development/business services, Real estate & property"
+    BUSINESS_ENHANCEMENT = "Business enhancement"
     ARTS = "Arts & entertainment"
     OTHER = "Other"
 
-class testInfo(BaseModel):
+class Company_Type(str, Enum):
+    ESTABLISHED = "Established"
+    STARTUP = "Startup"
+
+class Ai_Maturity(str, Enum):
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+
+class Consultation_Type(str, Enum):
+    REGULAR = "Regular"
+    POP = "Pop-up"
+
+class Technical_Expertise(str, Enum):
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+
+class Target_Group(str, Enum):
+    HEALTHCARE_PROFESSIONALS = "Healthcare professionals"
+    PATIENTS_HEALTHCARE_CONSUMERS = "Patients and healthcare consumers"
+    MEDICAL_RESEARCHERS = "Medical researchers"
+    PHARMACEUTICAL_COMPANIES = "Pharmaceutical companies"
+    DENTAL_PROFESSIONALS = "Dental professionals"
+    PSYCHOLOGISTS_PSYCHIATRISTS = "Psychologists and psychiatrists"
+    ELDERLY_CARE_HOMES_ASSISTED_LIVING_PROVIDERS = "Elderly care homes and assisted living providers"
+    FUNCTIONAL_MEDICINE_CLINICS_SPECIALIZED_HEALTHCARE_PROVIDERS = "Functional medicine clinics and specialized healthcare providers"
+    SMALL_MEDIUM_BUSINESSES = "Small and medium businesses"
+    LARGE_ENTERPRISE_COMPANIES_CORPORATIONS = "Large enterprise companies and corporations"
+    STARTUPS_ENTREPRENEURS = "Startups and entrepreneurs"
+    BUSINESS_ANALYSTS_CONSULTANTS = "Business analysts and consultants"
+    SOFTWARE_DEVELOPERS_TECH_COMPANIES = "Software developers and tech companies"
+    AI_RESEARCHERS_DATA_SCIENTISTS = "AI/ML researchers and data scientists"
+    IT_PROFESSIONALS_SYSTEM_ADMINISTRATORS = "IT professionals and system administrators"
+    SCHOOL_STUDENTS = "School students"
+    COLLEGE_UNIVERSITY_STUDENTS = "College/University students"
+    JOB_SEEKERS = "Job seekers"
+    TEACHERS_EDUCATIONAL_PROFESSIONALS = "Teachers & educational professionals"
+    EDUCATIONAL_INSTITUTIONS_SCHOOLS = "Educational institutions & schools"
+    ONLINE_LEARNING_PLATFORMS = "Online learning platforms"
+    EMPLOYEE_TRAINING_WORKFORCE_EDUCATION = "Employee training and workforce education"
+    GOVERNMENT_AGENCIES_PUBLIC_SECTOR_ORGANIZATIONS = "Government agencies and public sector organizations"
+    MUNICIPALITIES_CITY_GOVERNMENTS = "Municipalities and city governments"
+    DEFENSE_FORCES_MILITARY_ORGANIZATIONS = "Defense forces and military organizations"
+    LAW_ENFORCEMENT_SECURITY = "Law enforcement & security"
+    EMERGENCY_SERVICES = "Emergency services"
+    BANKS_FINANCIAL_INSTITUTIONS = "Banks & financial institutions"
+    INSURANCE_COMPANIES = "Insurance companies"
+    FINTECH_COMPANIES_PAYMENT_PROCESSORS = "FinTech companies & payment processors"
+    LAW_FIRMS_LEGAL_PROFESSIONALS = "Law firms & legal professionals"
+    CONSTRUCTION_COMPANIES_CONTRACTORS = "Construction companies and contractors"
+    ARCHITECTS_BUILDING_DESIGNERS = "Architects and building designers"
+    REAL_ESTATE_AGENTS_PROPERTY_INVESTORS = "Real estate agents and property investors"
+    MANUFACTURING_COMPANIES_INDUSTRIAL_PRODUCERS = "Manufacturing companies and industrial producers"
+    AUTOMOTIVE_MANUFACTURERS_CAR_DEALERSHIPS = "Automotive manufacturers and car dealerships"
+    MACHINE_PARTS_VENDORS_EQUIPMENT_SUPPLIERS = "Machine parts vendors and equipment suppliers"
+    LOGISTICS_COMPANIES_TRANSPORTATION_OPERATORS = "Logistics companies and transportation operators"
+    RETAIL_COMPANIES_COMMERCE_PLATFORMS = "Retail companies and e-commerce platforms"
+    FOOD_BRANDS = "Food brands"
+    CUSTOMER_SERVICE_SUPPORT_TEAMS = "Customer service and support teams"
+    CONTENT_CREATORS_DIGITAL_ARTISTS = "Content creators and digital artists"
+    MEDIA_ENTERTAINMENT = "Media and entertainment"
+    MUSIC_SCHOOLS_MUSIC_PROFESSIONALS = "Music schools and music professionals"
+    ADVERTISING_AGENCIES_MARKETING_FIRMS = "Advertising agencies and marketing firms"
+    HOSPITALITY_INDUSTRY = "Hospitality industry"
+    TRAVEL_AGENCIES_TOURISM_PROVIDERS = "Travel agencies and tourism providers"
+    ENERGY_COMPANIES_UTILITY_PROVIDERS = "Energy companies and utility providers"
+    ENVIRONMENTAL_SUSTAINABILITY_ORGANIZATIONS = "Environmental and sustainability organizations"
+    ORGANIZATIONS_NEEDING_CSRD_ESRS_COMPLIANCE = "Organizations needing CSRD/ESRS compliance"
+    RESEARCH_INSTITUTIONS = "Research institutions"
+    PHARMACEUTICAL_BIOTECH_COMPANIES = "Pharmaceutical and biotech companies"
+    ORGANIZATIONS_SEEKING_FUNDING_GRANTS = "Organizations seeking EU funding and grants"
+    AGRICULTURE = "Agriculture"
+    IMMIGRATION = "Immigration"
+    EMPLOYERS_RECRUITERS = "Employers and recruiters"
+    FITNESS_TRAINERS_WELLNESS_COACHES = "Fitness trainers and wellness coaches"
+    GENERAL_CONSUMERS_PUBLIC_USERS = "General consumers and public users"
+    SENIOR_EXECUTIVES_LEVEL_LEADERS = "Senior executives and C-level leaders"
+    KNOWLEDGE_WORKERS_PROFESSIONALS = "Knowledge workers and professionals"
+    SPORT_PROFESSIONALS = "Sport professionals"
+    GAMING_COMPANIES = "Gaming companies"
+    GAME_PROGRAMMERS = "game programmers"
+    OTHER = "Other"
+
+class Services_Sought(str, Enum):
+    TECHNICAL_ADVICE = "Technical advice"
+    POC_DEVELOPMENT = "PoC development"
+    DATA_ANALYSIS = "Data analysis"
+    AI_ROADMAP_DESIGN = "AI roadmap design"
+    FUNDING_APPLICATION_SUPPORT = "Funding application support"
+    STUDENT_THESIS_PROJECT = "Student thesis project"
+    NETWORKING_SUPPORT = "Networking support"
+    R_COLLABORATION = "R&D collaboration"
+    DATA_COLLECTION = "Data collection"
+    USE_CASE_DESIGN = "Use case design"
+    TECHNICAL_REVIEW = "Technical review"
+    OTHER = "Other"
+
+class Data_Type(str, Enum):
+    TEXT_DATA = "Text data"
+    IMAGE_DATA = "Image data"
+    VIDEO_DATA = "Video data"
+    AUDIO_SPEECH_DATA = "Audio and speech data"
+    TABULAR_STRUCTURED_DATA = "Tabular and structured data"
+    ELECTRONIC_HEALTH_RECORDS_MEDICAL_DATA = "Electronic health records and medical data"
+    GEOSPATIAL_LOCATION_DATA = "Geospatial and location data"
+    SENSOR_SIGNALS_IOT_DATA = "Sensor signals and IoT data"
+    FINANCIAL_BUSINESS_DATA = "Financial and business data"
+    GENOMICS_BIOLOGICAL_DATA = "Genomics and biological data"
+    ENGINEERING_DRAWINGS_TECHNICAL_DATA = "Engineering drawings and technical data"
+    OTHER = "Other"
+
+class Recommendation_Categories(str, Enum):
+    DEVELOP_RAG_KNOWLEDGE_SYSTEMS = "Develop RAG & Knowledge Systems"
+    IMPLEMENT_PREDICTIVE_ANALYTICS_MODELS = "Implement Predictive Analytics & ML Models"
+    TRAIN_TEST_DEPLOY_MACHINE_LEARNING_MODELS = "Train/Test & Deploy Machine Learning Models"
+    EXPLORE_EXISTING_TOOLS_MODELS = "Explore Existing AI/ML Tools & Models"
+    LEVERAGE_LARGE_LANGUAGE_MODELS_DOMAIN_APPLICATIONS = "Leverage Large Language Models for Domain Applications"
+    STRENGTHEN_DATA_COLLECTION_PROCESSING_MANAGEMENT_PLAN = "Strengthen data collection/processing/management plan"
+    USE_SECURE_PLATFORMS = "Use secure AI platforms"
+    ENSURE_ETHICAL_RESPONSIBLE_EXPLAINABLE = "Ensure Ethical and Responsible/Explainable AI"
+    ADOPT_INCREMENTAL_MODULAR_INTEGRATION = "Adopt Incremental & Modular AI Integration"
+    EXPLORE_RULE_BASED_APPROACHES = "Explore Rule-Based Approaches"
+    COLLABORATE_WITH_ACADEMIA_RESEARCH_PARTNERS = "Collaborate with Academia & Research Partners"
+    UPSKILL_TEAMS_BUILD_EXPERTISE = "Upskill Teams & Build AI Expertise"
+    DESIGN_ROADMAP = "Design an AI roadmap"
+    ADOPT_HUMAN_LOOP_APPROACHES = "Adopt Human-in-the-Loop Approaches"
+    USE_OPEN_SOURCE_MODELS = "Use Open-Source Models"
+    ENSURE_BUSINESS_VALUE = "Ensure Business Value"
+    DEVELOP_PROOF_CONCEPT_POC = "Develop Proof-of-Concept (PoC)"
+    PRIORITIZE_USE_CASE_SELECTION = "Prioritize Use-Case Selection"
+
+class AIReportsExtraction(BaseModel):
     company: str = Field(..., description='name of the company')
     experts: str = Field(..., description='name of the experts')
-    ai_field: Ai_Field = Field(..., description="he primary AI field the company is using or planning to use. Choose ONE from:\n        - Generative AI: Content generation (text, images, audio, code), large language models, retrieval augment generation, chatbots, text-to-speech, speech-to-text, model context protocol, AI agents\n        - Machine learning: Traditional ML algorithms, neural networks, deep learning, clustering, classification, pattern recognition\n        - Predictive analytics: Statistical algorithms for forecasting, trend analysis, predictive modeling based on historical data\n        - Computer vision & image processing: Image processing, image recognition, object detection, obejct tracking, facial recognition, image segmentation, image description or labeling, video analysis, eye-tracking\n        - Rule-based systems: Predefined rules, logic, knowledge bases, expert systems, decision trees, rule-based reasoning\n        - Other: AI field that doesn't clearly fit into any of the above categories")
-    domain: Domain = Field(..., description="The primary industry domain the company belongs to. Choose ONE from:\n        - Healthcare & wellbeing: Medical, healthcare, wellness, fitness, health services, diagnostics, devices, mental health\n        - Automotive: Car manufacturers, parts suppliers, automotive software, autonomous vehicles\n        - Construction: Building construction, architecture, civil engineering, construction materials, planning\n        - Manufacturing: Physical goods production, industrial production, factories, automation\n        - Cultural & creative industries: Design, publishing, media production, art, cultural heritage, creative content\n        - Defense: Military, defense technologies, security forces, governmental defense\n        - Education & training: Educational services, training, e-learning platforms, educational content, academic tools\n        - Environment & sustainability: Environmental protection, sustainability, renewable energy, conservation, climate monitoring\n        - Finance: Banking, insurance, fintech, investment, accounting, financial services\n        - Legal: Legal services, legal tech, compliance tools, regulatory assistance\n        - Security: Cybersecurity, physical security, surveillance, identity verification, threat detection\n        - Smart cities: Urban infrastructure technologies, city planning, urban monitoring, smart city initiatives\n        - Transport, mobility, logistics: Transportation services, logistics, supply chain, shipping, freight, mobility\n        - Travel & tourism: Travel industry, tourism, hospitality, booking services, travel planning\n        - Business development/business services: B2B services, consulting, business optimization, productivity tools\n        - Real estate & property: Property management, real estate services, property development, facility management\n        - Arts & entertainment: Entertainment, media, gaming, arts, leisure sectors\n        - Other: Companies that don't clearly fit into any of the above categories")
+    ai_field: Ai_Field = Field(..., description="The primary AI field the company is using or planning to use. Choose ONE from:\n        - Generative AI: Content generation (text, images, audio, code), large language models, retrieval augment generation, chatbots, text-to-speech, speech-to-text, model context protocol, AI agents\n        - Machine learning: Traditional ML algorithms, neural networks, deep learning, clustering, classification, pattern recognition\n        - Predictive analytics: Statistical algorithms for forecasting, trend analysis, predictive modeling based on historical data\n        - Computer vision & image processing: Image processing, image recognition, object detection, obejct tracking, facial recognition, image segmentation, image description or labeling, video analysis, eye-tracking\n        - Rule-based systems: Predefined rules, logic, knowledge bases, expert systems, decision trees, rule-based reasoning\n        - Other: AI field that doesn't clearly fit into any of the above categories")
+    domain: Domain = Field(..., description="The primary industry domain the company belongs to. Choose ONLY ONE top-matching domain from:\n        - Healthcare & wellbeing: Medical, healthcare, wellness, fitness, health services, diagnostics, devices, mental health\n        - Automotive: Car manufacturers, parts suppliers, automotive software, autonomous vehicles\n        - Construction: Building construction, architecture, civil engineering, construction materials, planning\n        - Manufacturing: Physical goods production, industrial production, factories, automation\n        - Cultural & creative industries: Design, publishing, media production, art, cultural heritage, creative content\n        - Defense: Military, defense technologies, security forces, governmental defense\n        - Education & training: Educational services, training, e-learning platforms, educational content, academic tools\n        - Environment & sustainability: Environmental protection, sustainability, renewable energy, conservation, climate monitoring\n        - Finance: Banking, insurance, fintech, investment, accounting, financial services\n        - Legal: Legal services, legal tech, compliance tools, regulatory assistance\n        - Security: Cybersecurity, physical security, surveillance, identity verification, threat detection\n        - Smart cities: Urban infrastructure technologies, city planning, urban monitoring, smart city initiatives\n        - Property and real estate sector: Real estate services, property management, facility operations, and property development\n        - Transport & logistics: Transportation services, logistics, supply chain, shipping, freight, mobility\n        - Travel & tourism: Travel industry, tourism, hospitality, booking services, travel planning\n        - Business enhancement: B2B services, consulting, business optimization, productivity tools\n        - Arts & entertainment: Entertainment, media, gaming, arts, leisure sectors\n        - Other: Companies that don't clearly fit into any of the above categories\n")
     intended_ai_idea: str = Field(..., description="Brief description (one phrase not exceeding a few words) of the company's proposed or intended AI solution. Examples: 'AI-based healthcare app for lifestyle recommendations', 'AI-based language learning platform', 'Computer vision system for quality control', etc.")
     recommendations: str = Field(..., description='A very brief summary of the recommendations, not exceeding a few phrases. ')
+    company_type: Company_Type = Field(..., description='Whether the company is an established company or a startup. ')
+    ai_maturity: Ai_Maturity = Field(..., description='AI maturity level of the company')
+    consultation_date: str = Field(..., description='date of the consultation in dd-mm-yyyy format')
+    country: str = Field(..., description='name of the country the company belongs to')
+    consultation_type: Consultation_Type = Field(..., description='type of the consultation')
+    technical_expertise: Technical_Expertise = Field(..., description="Company's technical expertise in AI")
+    target_group: Target_Group = Field(..., description='The primary target group(s) that would most benefit from the AI solution. Choose from:\n        - Healthcare professionals: Medical practitioners, clinical staff, healthcare facilities\n        - Patients and healthcare consumers: End users of healthcare services, health-conscious consumers, chronic disease patients\n        - Medical researchers: Research scientists, drug developers, clinical researchers\n        - Pharmaceutical companies: Pharmaceutical companies\n        - Dental professionals: Dental professionals and oral healthcare providers\n        - Psychologists and psychiatrists: Mental health professionals and therapy providers\n        - Elderly care homes and assisted living providers: Senior care facilities and eldercare professionals\n        - Functional medicine clinics and specialized healthcare providers: Alternative and specialized medical practitioners\n        - Small and medium businesses: Small business owners, medium-sized companies, entrepreneurial ventures\n        - Large enterprise companies and corporations: Fortune 500 companies, multinational corporations, large organizations\n        - Startups and entrepreneurs: New business ventures, startup founders, entrepreneurial companies\n        - Business analysts and consultants: Management consultants, business strategy advisors, professional services\n        - Software developers and tech companies: Programming professionals, technology companies, software development firms\n        - AI/ML researchers and data scientists: Artificial intelligence researchers, machine learning specialists, data professionals\n        - IT professionals and system administrators: Information technology specialists, system administrators, IT support\n        - School students: K-12, basic or elementary school students.\n        - College/University students: Students of higher educational institutes\n        - Job seekers: People seeking jobs\n        - Teachers & educational professionals: Educators, instructors, academic staff, educational administrators\n        - Educational institutions & schools: Schools, universities, colleges\n        - Online learning platforms: Online learning platforms\n        - Employee training and workforce education: Organizations providing corporate training, professional development providers\n        - Government agencies and public sector organizations: Federal agencies, state governments, public sector\n        - Municipalities and city governments: Local government officials, municipal administrators, city planners\n        - Defense forces and military organizations: Armed forces, military personnel, defense contractors\n        - Law enforcement & security: Police, cybersecurity, security companies\n        - Emergency services: Public emergency responders\n        - Banks & financial institutions: Traditional banks and credit unions\n        - Insurance companies: insurance companies\n        - FinTech companies & payment processors: Financial technology startups, digital payment companies\n        - Law firms & legal professionals: Legal service providers, attorneys, corporate legal departments\n        - Construction companies and contractors: Building contractors, construction firms, construction industry\n        - Architects and building designers: Building designers, structural engineers, construction planners\n        - Real estate agents and property investors: Property sales professionals, property management, and real estate investment\n        - Manufacturing companies and industrial producers: Factory owners, industrial manufacturers, production companies\n        - Automotive manufacturers and car dealerships: Car manufacturers, vehicle producers, automotive sales\n        - Machine parts vendors and equipment suppliers: Industrial equipment suppliers, machinery vendors\n        - Logistics companies and transportation operators: Freight companies, shipping services, transportation providers\n        - Retail companies and e-commerce platforms: Physical retail stores, online retailers, digital marketplaces\n        - Food brands: Food manufacturers, food industry\n        - Customer service and support teams: Customer support professionals, service representatives, help desk teams\n        - Content creators and digital artists: YouTubers, bloggers, digital designers, creative professionals\n        - Media and entertainment: TV, radio, film, gaming, streaming platforms\n        - Music schools and music professionals: Music education, music industry professionals, music fans\n        - Advertising agencies and marketing firms: Ad agencies, marketing professionals, brand managers\n        - Hospitality industry: Hotels, restaurants, event organizers, venue operators\n        - Travel agencies and tourism providers: Travel service providers, tourism industry, hospitality providers\n        - Energy companies and utility providers: Electric utilities, power generation, renewable energy companies\n        - Environmental and sustainability organizations: Conservation groups, environmental agencies, green tech companies\n        - Organizations needing CSRD/ESRS compliance: Companies requiring sustainability reporting and compliance\n        - Research institutions: Academic research organizations, policy research, innovation labs\n        - Pharmaceutical and biotech companies: Drug development companies, biotechnology firms, medical research\n        - Organizations seeking EU funding and grants: Grant applicants, research funding seekers, EU project participants\n        - Agriculture: Agricultural workers, farmers, farming communities\n        - Immigration: Immigration services, migrant support, international employment\n        - Employers and recruiters: Human resources, talent acquisition, employment agencies, employers, recruiters\n        - Fitness trainers and wellness coaches: Personal trainers, wellness professionals, fitness industry workers\n        - General consumers and public users: Everyday consumers, general public, end-user consumers\n        - Senior executives and C-level leaders: CEOs, executive leadership, senior management professionals\n        - Knowledge workers and professionals: Professional workers, office workers, skilled professionals\n        - Sport professionals: Sportsmen, game players, gaming institutes\n        - Gaming companies, game programmers: Gaming companies, game programmers\n        - Other: Target groups that don\'t clearly fit into any of the above categories\n        \n        Return as a list of target groups, for example: ["Healthcare professionals", "Patients and healthcare consumers"] or ["Job seekers"]\n')
+    services_sought: Services_Sought = Field(..., description='The services sought by the company. Choose one or more relevant services from:\n     - Technical advice: Services related to algorithmic design, model selection, training, testing, deployment, or other technical aspects\n- PoC development: Support in developing proof of concept\n        - Data analysis: Support in analyzing data and getting insights from it. \n        - AI roadmap design: Support in designing a concrete AI strategy or roadmap\n        - Funding application support: Support in applying for funding \n        - Student thesis project: Developing a prototype or proof of concept through a student thesis project (master thesis).\n        - Networking support: Connecting with other companies for collaboration\n        - R&D collaboration: Partenering in R&D and co-research or co-development projects\n        - Data collection: Support in collecting data for training AI models\n        - Use case design: Support in understanding AI integration and use case design. Required by companies which do not know which use-case is suitable for their business needs. \n        - Technical review: Technical review of the existing AI solution or product\n        - Other: Services required by the company that don\'t clearly fit into any of the above categories\n\n Return as a list of services, for example: ["Technical advice", "PoC development"] or ["AI roadmap design"]')
+    data_type: Data_Type = Field(..., description="The primary type of data required for the AI solution. Choose one or more relevant data types from:\n        - Text data: Text documents, reports, scientific papers, legal contracts, patient notes, therapy transcripts, regulatory documents, user comments, CVs, job descriptions, and any textual content\n        - Image data: Medical images (X-rays, CT scans, MRIs, ultrasounds), photographs, facial images, dental images, cellular imaging, engineering drawings, building drawings, 2D technical diagrams, and any visual content\n        - Video data: Video recordings, annotated video feeds, multimedia content, video data with audio tracks, training videos, and any moving visual content\n        - Audio and speech data: Speech recordings, audio data, voice transcripts, audio tracks, heartbeat sounds, lung sounds, and any audio content\n        - Tabular and structured data: Spreadsheets, databases, numerical data, statistical data, laboratory results, demographic data, metadata, activity data from devices, and structured datasets\n        - Electronic health records and medical data: Patient records, medical history, treatment data, clinical data, health metrics, physiological signals (ECG, vital signs), medical device data, and healthcare-specific information\n        - Geospatial and location data: GPS coordinates, location metadata, geographical information, mapping data, spatial coordinates, and location-based information\n        - Sensor signals and IoT data: Sensor measurements, IoT device signals, physiological monitoring data, environmental sensors, smart device data, and automated data collection\n        - Financial and business data: Accounting data, financial records, business operations data, tendering information, procurement data, and business metrics\n        - Genomics and biological data: DNA sequences, genetic information, biological samples, genomics data, and biological research data\n        - Engineering drawings and technical data: CAD drawings, technical blueprints, 3D point cloud data, architectural plans, engineering specifications, and technical documentation\n        - Other: Data types that don't clearly fit into any of the above categories")
+    recommendation_categories: Recommendation_Categories = Field(..., description='The main categories in which the recommendations fall. Choose ONE OR MORE relevant categories from:\n       - Develop RAG & Knowledge Systems: RAG architectures, hybrid retrieval, vector DBs, knowledge graphs\n       - Implement Predictive Analytics & ML Models: Regression, ensemble, forecasting, anomaly detection, gradient boosting, Bayesian models\n       - Train/Test & Deploy Machine Learning Models: Model training, testing, deployment, fine-tuning, performance metrics, robustness\n       - Explore Existing AI/ML Tools & Models: Instead of creating new AI/ML tools and models, explore the existing (open-source or proprietary) tools and models. \n       - Leverage Large Language Models for Domain Applications: Chatbots, code generation, translation, sentiment/emotion analysis, report generation, knowledge extraction\n       - Strengthen data collection/processing/management plan: Data collection, balancing, augmentation, labeling, privacy, compliance, data management\n       - Use secure AI platforms: use secure generative AI platforms or sandboxes like Microsoft Azure, AWS, Google Cloud, or others. \n       - Ensure Ethical and Responsible/Explainable AI: Bias monitoring, explainability/XAI, transparency, GDPR, AI Act, ethical guardrails\n       - Adopt Incremental & Modular AI Integration: Rule-based starting points, transition to ML/LLMs, modular systems, phased rollouts\n       - Explore Rule-Based Approaches: Simple rule-based or programming-based solutions where AI is not needed\n       - Collaborate with Academia & Research Partners: Universities, thesis projects, consortia, grants, FAIR EDIH, cross-company partnerships\n       - Upskill Teams & Build AI Expertise: Training, AI literacy, staff upskilling, hiring talent, addressing lack of expertise\n       - Design an AI roadmap: AI roadmap, use-case definition, integration with business goals\n       - Adopt Human-in-the-Loop Approaches: Oversight, validation, verification, continuous feedback mechanisms\n       - Use Open-Source Models: Open-source LLMs/ML models for privacy, transparency, and cost-effectiveness\n       - Ensure Business Value: Validate ROI, prioritize impactful ideas, focus on strategic benefits\n       - Develop Proof-of-Concept (PoC): Test technological feasibility, prototype functional systems\n       - Prioritize Use-Case Selection: Select and prioritize use-cases aligned with business value and feasibility')
 ```
 
 CRITICAL EXTRACTION RULES:
@@ -82,7 +225,7 @@ CRITICAL EXTRACTION RULES:
 
 
 OUTPUT FORMAT:
-Return the extracted information as a JSON object that exactly matches the testInfo structure shown above.
+Return the extracted information as a JSON object that exactly matches the AIReportsExtraction structure shown above.
 
 CRITICAL: All JSON field names MUST be in snake_case format (lowercase with underscores) to match the model exactly.
 For example: "due_date", "bank_name", "car_type" - NOT "Due date", "bank name", "car type"

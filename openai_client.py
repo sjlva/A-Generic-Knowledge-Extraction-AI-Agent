@@ -41,7 +41,7 @@ class OpenAIClient:
             
             self.client = AzureOpenAI(
                 api_key=api_key,
-                api_version=self.api_config.get('api_version', '2024-12-01-preview'),
+                api_version=self.api_config.get('api_version', 'gpt-4.1'),
                 azure_endpoint=self.api_config.get('azure_endpoint')
             )
             self.model = self.api_config.get('model', 'gpt-4.1')
@@ -145,8 +145,9 @@ Make sure all enum values are properly formatted and all field types are correct
                         "content": prompt
                     }
                 ],
-                max_tokens=4000,
-                temperature=0.0
+                #max_tokens=4000,
+                max_completion_tokens = 4000,
+                #temperature=0.0
             )
             
             logger.info("Successfully generated Pydantic models using OpenAI")

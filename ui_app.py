@@ -781,7 +781,7 @@ def configuration_section():
             help="Select for secure data processing. Requires MS AZURE API key"
         )
         
-        # Force GPT-4 selection when Azure is enabled
+        # Force GPT-4.1 selection when Azure is enabled
         if st.session_state.use_azure and st.session_state.extraction_model != 'gpt-4.1-2025-04-14':
             st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
             st.rerun()
