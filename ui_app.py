@@ -20,6 +20,9 @@ from document_parser import DocumentParser
 from openai_extractor import OpenAIExtractor
 from claude_extractor import ClaudeExtractor
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 def get_api_config():
     """Get API configuration based on whether Azure endpoint is selected"""
     import os
@@ -1456,4 +1459,5 @@ def main():
 if __name__ == "__main__":
     # Add required import for Excel download
     from io import BytesIO
+
     main()
