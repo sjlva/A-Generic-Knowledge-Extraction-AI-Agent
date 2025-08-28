@@ -109,9 +109,16 @@ CLAUDE_API_KEY=your_claude_api_key_here
 
 # OpenAI Configuration (Standard)
 OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL_NAME=your_openai_model_name_here
 
 # Azure OpenAI Configuration (Optional - for secure processing)
 AZURE_API_KEY=your_azure_openai_api_key_here
+OPENAI_MODEL_NAME=your_azure_openai_model_name_here
+AZURE_ENDPOINT=your_azure_endpoint_here
+AZURE_API_VERSION=your_azure_api_version_here
+
+# Optional: Set log level (DEBUG, INFO, WARNING, ERROR)
+LOG_LEVEL=INFO
 ```
 
 ### API Key Acquisition
@@ -330,5 +337,6 @@ For support and questions:
 - **Documentation**: [Wiki](https://github.com/umairalipathan1980/A-Generic-Knowledge-Extraction-AI-Agent/wiki)
 - **Community**: [Discussions](https://github.com/umairalipathan1980/A-Generic-Knowledge-Extraction-AI-Agent/discussions)
 ---
+
 
 **Ready to transform your document processing workflow? Get started in minutes with the Knowledge Extraction AI Agent!**
