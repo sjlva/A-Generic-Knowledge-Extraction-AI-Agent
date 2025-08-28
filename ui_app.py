@@ -31,20 +31,17 @@ def get_api_config():
             azure_api_key = st.secrets["AZURE_API_KEY"]
             azure_open_ai_model_name = st.secrets["OPENAI_MODEL_NAME"]
             azure_endpoint = st.secrets["AZURE_ENDPOINT"]
-            azure_audio_endpoint = st.secrets["AZURE_AUDIO_ENDPOINT"]
             azure_api_version = st.secrets["AZURE_API_VERSION"]
         except:
             azure_api_key = os.getenv('AZURE_API_KEY')
             azure_open_ai_model_name = os.getenv("OPENAI_MODEL_NAME")
             azure_endpoint = os.getenv("AZURE_ENDPOINT")
-            azure_audio_endpoint = os.getenv("AZURE_AUDIO_ENDPOINT")
             azure_api_version = os.getenv("AZURE_API_VERSION")
             
         return {
             'use_azure': True,
             'api_key': azure_api_key,
             'azure_endpoint': azure_endpoint,
-            'azure_audio_endpoint': azure_audio_endpoint,
             'api_version': azure_api_version,
             'model': azure_open_ai_model_name,  # Chat completion model
         }
@@ -1468,3 +1465,4 @@ if __name__ == "__main__":
     from io import BytesIO
 
     main()
+
