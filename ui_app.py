@@ -29,28 +29,38 @@ def get_api_config():
         # Try secrets first, then fall back to environment variables
         try:
             azure_api_key = st.secrets["AZURE_API_KEY"]
+            azure_open_ai_model_name = st.secrets["OPENAI_MODEL_NAME"]
+            azure_endpoint = st.secrets["AZURE_ENDPOINT"]
+            azure_audio_endpoint = st.secrets["AZURE_AUDIO_ENDPOINT"]
+            azure_api_version = st.secrets["AZURE_API_VERSION"]
         except:
             azure_api_key = os.getenv('AZURE_API_KEY')
+            azure_open_ai_model_name = os.getenv("OPENAI_MODEL_NAME")
+            azure_endpoint = os.getenv("AZURE_ENDPOINT")
+            azure_audio_endpoint = os.getenv("AZURE_AUDIO_ENDPOINT")
+            azure_api_version = os.getenv("AZURE_API_VERSION")
             
         return {
             'use_azure': True,
             'api_key': azure_api_key,
-            'azure_endpoint': "https://haagahelia-poc-gaik.openai.azure.com/openai/deployments/gpt-4.1/chat/completions?",
-            'azure_audio_endpoint': "https://haagahelia-poc-gaik.openai.azure.com/openai/deployments/whisper/audio/translations?api-version=2024-06-01",
-            'api_version': "2024-12-01-preview",
-            'model': 'gpt-4.1',  # Chat completion model
+            'azure_endpoint': azure_endpoint,
+            'azure_audio_endpoint': azure_audio_endpoint,
+            'api_version': azure_api_version,
+            'model': azure_open_ai_model_name,  # Chat completion model
         }
     else:
         # Try secrets first, then fall back to environment variables
         try:
             openai_api_key = st.secrets["OPENAI_API_KEY"]
+            open_ai_model_name = st.secrets["OPENAI_MODEL_NAME"]
         except:
             openai_api_key = os.getenv('OPENAI_API_KEY')
+            openai_ai_model_name = os.getenv('OPENAI_MODEL_NAME')
             
         return {
             'use_azure': False,
             'api_key': openai_api_key,
-            'model': 'gpt-4.1-2025-04-14',  # Chat completion model
+            'model': open_ai_model_name,  # Chat completion model
         }
 
 # Page configuration
@@ -1456,4 +1466,5 @@ def main():
 if __name__ == "__main__":
     # Add required import for Excel download
     from io import BytesIO
+
     main()
