@@ -104,18 +104,25 @@ The application uses a sophisticated three-layer architecture:
 Create a `.env` file in the project root with the following variables:
 
 ```env
+# Knowledge Extraction AI Agent - Environment Variables
+# Copy this file to .env and replace the placeholder values with your actual API keys
+
 # Claude AI Configuration
+# Get your API key from: https://console.anthropic.com/
 CLAUDE_API_KEY=your_claude_api_key_here
+CLAUDE_MODEL_NAME="claude-sonnet-4-20250514"
 
 # OpenAI Configuration (Standard)
+# Get your API key from: https://platform.openai.com/api-keys
 OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_MODEL_NAME=your_openai_model_name_here
+OPENAI_MODEL_NAME="gpt-4.1-2025-04-14"
 
-# Azure OpenAI Configuration (Optional - for secure processing)
+# Azure OpenAI Configuration (Optional - for secure enterprise processing)
+# Contact your Azure administrator or set up through Azure Portal
 AZURE_API_KEY=your_azure_openai_api_key_here
-OPENAI_MODEL_NAME=your_azure_openai_model_name_here
+OPENAI_MODEL_NAME="gpt-4.1"
 AZURE_ENDPOINT=your_azure_endpoint_here
-AZURE_API_VERSION=your_azure_api_version_here
+AZURE_API_VERSION="2025-04-14"
 
 # Optional: Set log level (DEBUG, INFO, WARNING, ERROR)
 LOG_LEVEL=INFO
@@ -340,3 +347,4 @@ For support and questions:
 
 
 **Ready to transform your document processing workflow? Get started in minutes with the Knowledge Extraction AI Agent!**
+
