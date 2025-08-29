@@ -13,6 +13,10 @@ import pandas as pd
 from datetime import datetime
 import time
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Import our modules
 from model_generator import ModelGenerator
@@ -22,6 +26,10 @@ from claude_extractor import ClaudeExtractor
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Load model names from environment variables (no fallbacks)
+CLAUDE_MODEL_NAME = os.getenv('CLAUDE_MODEL_NAME')
+GPT_MODEL_NAME = os.getenv('OPENAI_MODEL_NAME')
 
 def get_api_config():
     """Get API configuration based on whether Azure endpoint is selected"""
@@ -228,23 +236,9 @@ def initialize_session_state():
     if 'rebuild_models' not in st.session_state:
         st.session_state.rebuild_models = False
     if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
+        st.session_state.model_generation_model = None
     if 'extraction_model' not in st.session_state:
-        st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
-    if 'use_azure' not in st.session_state:
-        st.session_state.use_azure = False
-    if 'use_azure' not in st.session_state:
-        st.session_state.use_azure = False
-    if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
-    if 'extraction_model' not in st.session_state:
-        st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
-    if 'use_azure' not in st.session_state:
-        st.session_state.use_azure = False
-    if 'model_generation_model' not in st.session_state:
-        st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
-    if 'extraction_model' not in st.session_state:
-        st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
+        st.session_state.extraction_model = None
     if 'use_azure' not in st.session_state:
         st.session_state.use_azure = False
 
@@ -365,8 +359,8 @@ def build_additional_instructions() -> str:
 def validate_azure_configuration() -> tuple[bool, str, str]:
     """Validate Azure configuration and return status, message, and CSS class"""
     use_azure = st.session_state.get('use_azure', False)
-    generation_model = st.session_state.get('model_generation_model', 'claude-sonnet-4-20250514')
-    extraction_model = st.session_state.get('extraction_model', 'gpt-4.1-2025-04-14')
+    generation_model = st.session_state.get('model_generation_model')
+    extraction_model = st.session_state.get('extraction_model')
     
     if not use_azure:
         return True, "", ""
@@ -740,49 +734,62 @@ def configuration_section():
     
     # Model Selection Settings
     st.markdown("**⚙️ Model Settings**")
-    
+
+    # Dynamically create the list of available models from .env
+    available_models = []
+    if CLAUDE_MODEL_NAME:
+        available_models.append(CLAUDE_MODEL_NAME)
+    if GPT_MODEL_NAME:
+        available_models.append(GPT_MODEL_NAME)
+
+    # If no models are configured in .env, show an error and stop.
+    if not available_models:
+        st.error("🚨 No models configured. Please add `CLAUDE_MODEL_NAME` and/or `OPENAI_MODEL_NAME` to your .env file.")
+        return # Stop rendering the rest of the page
+
     col1, col2, col3 = st.columns(3)
-    
+
     with col1:
-        # Initialize session state for model settings if not exists
-        if 'model_generation_model' not in st.session_state:
-            st.session_state.model_generation_model = 'claude-sonnet-4-20250514'
-        if 'extraction_model' not in st.session_state:
-            st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
-        if 'use_azure' not in st.session_state:
-            st.session_state.use_azure = False
+        # If the currently selected model is no longer available, default to the first one
+        if st.session_state.model_generation_model not in available_models:
+            st.session_state.model_generation_model = available_models[0]
+
+        # Get the index of the current selection for the selectbox
+        gen_model_index = available_models.index(st.session_state.model_generation_model)
         
         st.session_state.model_generation_model = st.selectbox(
             "Model for Data Model Generation",
-            options=['claude-sonnet-4-20250514', 'gpt-4.1-2025-04-14'],
-            index=0 if st.session_state.model_generation_model == 'claude-sonnet-4-20250514' else 1,
+            options=available_models,
+            index=gen_model_index,
             help="Choose the AI model to generate Pydantic data models from your field configurations"
         )
     
     with col2:
-        # Extraction model options depend on Azure selection
+        # Determine extraction options based on Azure selection and available models
         azure_enabled = st.session_state.get('use_azure', False)
-        if azure_enabled:
-            extraction_options = ['gpt-4.1-2025-04-14']
-            default_extraction = 'gpt-4.1-2025-04-14'
-        else:
-            extraction_options = ['gpt-4.1-2025-04-14', 'claude-sonnet-4-20250514']
-            default_extraction = st.session_state.extraction_model
-            
-        if default_extraction not in extraction_options:
-            default_extraction = extraction_options[0]
-            
-        st.session_state.extraction_model = st.selectbox(
-            "Extraction Model",
-            options=extraction_options,
-            index=extraction_options.index(default_extraction),
-            help="Choose the AI model for extracting data from documents",
-            disabled=azure_enabled and st.session_state.extraction_model != 'gpt-4.1-2025-04-14'
-        )
         
-        # Show disabled message if Azure is enabled and Claude was selected
-        if azure_enabled and st.session_state.extraction_model and 'claude' in st.session_state.extraction_model.lower():
-            st.warning("⚠️ This application uses only OpenAI model with Azure endpoint for extraction task")
+        if azure_enabled:
+            # Azure requires the GPT model
+            extraction_options = [GPT_MODEL_NAME] if GPT_MODEL_NAME else []
+        else:
+            extraction_options = available_models
+
+        if not extraction_options:
+            st.warning("⚠️ No compatible extraction models are configured.")
+        else:
+            # If the currently selected extraction model is no longer available, default to the first one
+            if st.session_state.extraction_model not in extraction_options:
+                st.session_state.extraction_model = extraction_options[0]
+
+            # Get the index of the current selection for the selectbox
+            ext_model_index = extraction_options.index(st.session_state.extraction_model)
+            
+            st.session_state.extraction_model = st.selectbox(
+                "Extraction Model",
+                options=extraction_options,
+                index=ext_model_index,
+                help="Choose the AI model for extracting data from documents"
+            )
     
     with col3:
         st.session_state.use_azure = st.checkbox(
@@ -791,11 +798,10 @@ def configuration_section():
             help="Select for secure data processing. Requires MS AZURE API key"
         )
         
-        # Force GPT-4.1 selection when Azure is enabled
-        if st.session_state.use_azure and st.session_state.extraction_model != 'gpt-4.1-2025-04-14':
-            st.session_state.extraction_model = 'gpt-4.1-2025-04-14'
+        # Force a re-run if Azure selection changes compatibility
+        if azure_enabled and st.session_state.extraction_model not in ([GPT_MODEL_NAME] if GPT_MODEL_NAME else []):
             st.rerun()
-    
+
     # Azure Configuration Validation and Certificate Display
     is_valid, message, css_class = validate_azure_configuration()
     if message:
@@ -1077,15 +1083,14 @@ def run_extraction():
     try:
         # Get API configuration and model selections
         api_config = get_api_config()
-        model_generation_model = st.session_state.get('model_generation_model', 'claude-sonnet-4-20250514')
-        extraction_model = st.session_state.get('extraction_model', 'gpt-4.1-2025-04-14')
+        model_generation_model = st.session_state.get('model_generation_model')
+        extraction_model = st.session_state.get('extraction_model')
         
         # Ensure models are strings and not None
-        if not model_generation_model:
-            model_generation_model = 'claude-sonnet-4-20250514'
-        if not extraction_model:
-            extraction_model = 'gpt-4.1-2025-04-14'
-        
+        if not model_generation_model or not extraction_model:
+            st.error("🚨 Extraction or Generation model is not selected or configured properly. Check your .env file and settings.")
+            return
+
         # Initialize components with model selections and API config
         # Pass API config for OpenAI model generation when Azure is enabled
         if model_generation_model and 'gpt' in model_generation_model.lower() and api_config.get('use_azure', False):
@@ -1119,7 +1124,7 @@ def run_extraction():
         
         if st.session_state.rebuild_models:
             # Generate new models
-            model_display_name = "Claude" if model_generation_model and 'claude' in model_generation_model.lower() else "OpenAI GPT-4.1"
+            model_display_name = "Claude" if model_generation_model and 'claude' in model_generation_model.lower() else "OpenAI GPT"
             status_text.text(f"🔧 Generating new Pydantic models using {model_display_name}...")
             progress_bar.progress(10)
             try:
@@ -1194,7 +1199,7 @@ def run_extraction():
         
         # Step 3: Extract data
         # Dynamic extraction model display
-        extraction_display_name = "Claude" if extraction_model and 'claude' in extraction_model.lower() else "OpenAI GPT-4.1"
+        extraction_display_name = "Claude" if extraction_model and 'claude' in extraction_model.lower() else "OpenAI GPT"
         azure_text = " (Azure)" if api_config.get('use_azure', False) else ""
         status_text.text(f"🧠 Extracting data from {len(parsed_documents)} documents using {extraction_display_name}{azure_text}...")
         progress_bar.progress(70)
@@ -1301,10 +1306,10 @@ def _cleanup_temp_files():
                     logger.info(f"Cleaned up orphaned temp file: {temp_file}")
             except Exception as e:
                 logger.warning(f"Could not clean up orphaned temp file {temp_file}: {e}")
-                
+            
         # Clear the selected files from session state
         st.session_state.selected_files = []
-        
+    
     except Exception as e:
         logger.error(f"Error during temp file cleanup: {e}")
 
@@ -1468,5 +1473,3 @@ if __name__ == "__main__":
     from io import BytesIO
 
     main()
-
-
